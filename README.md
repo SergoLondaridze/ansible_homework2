@@ -1,1 +1,2 @@
-Ansible Roles: NTP and WordPress
+# Ansible Roles: NTP and WordPress
+![alt Diagram](./digrama.PNG)
