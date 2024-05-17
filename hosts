@@ -1,0 +1,9 @@
+all:
+  children:
+    ntp-server:
+      hosts:
+        192.168.77.22:
+
+    ntp-client:
+      hosts:
+        192.168.77.23

@@ -1,0 +1,24 @@
+- name: Configure NTP Server
+  hosts: ntp-server
+  roles:
+    - role: ntp
+      ntp_conf_template: "ntp_server.conf.j2"
+
+- name: Configure NTP Client
+  hosts: ntp-client
+  roles:
+    - role: ntp
+      ntp_conf_template: "ntp_client.conf.j2"
+
+- name: Install Docker and create container
+  hosts: ntp-server
+  roles:
+    - role: wordpress-docker
+      
+
+- name: Install Docker and create container in ntp-client
+  hosts: ntp-client
+  roles:
+    - role: wordpress-docker
+      
+

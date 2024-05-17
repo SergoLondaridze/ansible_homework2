@@ -1,0 +1,34 @@
+---
+
+- name: Set timezone
+  timezone:
+    name: "{{ timezone }}"
+
+- name: Check if timedatectl is available
+  command: which timedatectl
+  register: timedatectl_exists
+  ignore_errors: yes
+
+- name: Disable systemd-timesyncd using timedatectl
+  command: timedatectl set-ntp off
+  when: timedatectl_exists.rc == 0
+  ignore_errors: yes
+
+- name: Install NTP package
+  package:
+    name: ntp
+    state: present
+
+- name: Configure NTP settings
+  template:
+    src: "{{ ntp_conf_template }}"
+    dest: /etc/ntp.conf
+  notify:
+    - restart ntpd
+
+- name: Start NTP service
+  service:
+    name: ntp
+    state: started
+    enabled: yes
+ 
